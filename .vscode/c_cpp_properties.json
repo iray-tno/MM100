@@ -40,6 +40,7 @@
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
             },
+            "compilerPath": "C:/Program Files/LLVM/bin/clang++.exe",
             "cStandard": "c11",
             "cppStandard": "c++17"
         }
