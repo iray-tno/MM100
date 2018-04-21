@@ -85,6 +85,9 @@ class Field {
         return;
     }
 
+    /**
+     * 隣接をとっていくだけ
+     */
     vector<string> hoge() {
         vector<string> seq;
         for (int x = 0; x < h; ++x) {
@@ -108,12 +111,41 @@ class Field {
         return seq;
     }
 
+    vector<string> fuga() {
+        auto seq = hoge();
+
+        bool updated = true;
+        while(updated) {
+            updated = false;
+            for (int x = 0; x < h; ++x) {
+                for (int y = 0; y < w; ++y) {
+                    bool updatedxy = false;
+                    if (board[x][y] < 0) continue;
+                    for (int nx = x; nx < h; ++nx) {
+                        for (int ny = y; ny < w; ++ny) {
+                            if (check(x,y,nx,ny)) {
+                                board[x][y] = -1;
+                                board[nx][ny] = -1;
+                                seq.push_back(to_string(x) + " " + to_string(y) + " " + to_string(nx) + " " + to_string(ny));
+                                updated = true;
+                                updatedxy = true;
+                            }
+                            if (updatedxy) break;
+                        }
+                        if (updatedxy) break;
+                    }
+                }
+            }
+        }
+        return seq;
+    }
+
     bool check(int ax, int ay, int bx, int by) {
         assert(isWithin(0, ax, h)); assert(isWithin(0, ay, w));
         assert(isWithin(0, bx, h)); assert(isWithin(0, by, w));
 
-        if (bx < ax) swap(ax, bx);
-        if (by < ay) swap(ay, by);
+        // if (bx < ax) swap(ax, bx);
+        // if (by < ay) swap(ay, by);
 
         if(board[ax][ay] != board[bx][by]) return false;
         if(ax == bx && ay == by) return false;
@@ -121,9 +153,11 @@ class Field {
 
         Color color = board[ax][ay];
 
-        for (int i = ax; i <= bx; ++i) {
-            for (int j = ay; j <= by; ++j) {
-                if (board[i][j] != color) return false;
+        int minx = min(ax,bx), maxx = max(ax,bx);
+        int miny = min(ay,by), maxy = max(ay,by);
+        for (int i = minx; i <= maxx; ++i) {
+            for (int j = miny; j <= maxy; ++j) {
+                if (board[i][j] != -1 && board[i][j] != color) return false;
             }
         }
 
@@ -143,7 +177,7 @@ public:
         Field field(H, W, board);
         // field.dump();
 
-        return field.hoge();
+        return field.fuga();
     }
 };
 
