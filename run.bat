@@ -1,5 +1,5 @@
 @echo off
-powershell -C ((Measure-Command {"((java -jar tester.jar -exec a.exe -novis > temp/score.txt))"}).TotalMilliseconds) > temp/time.txt
+powershell -C ((Measure-Command {"((java -jar tester.jar -seed 3 -exec a.exe -novis > temp/score.txt))"}).TotalMilliseconds) > temp/time.txt
 
 mkdir temp 2> nul
 
