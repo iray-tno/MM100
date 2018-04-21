@@ -140,12 +140,9 @@ class Field {
         return seq;
     }
 
-    bool check(int ax, int ay, int bx, int by) {
+    bool check(const int ax, const int ay, const int bx, const int by) {
         assert(isWithin(0, ax, h)); assert(isWithin(0, ay, w));
         assert(isWithin(0, bx, h)); assert(isWithin(0, by, w));
-
-        // if (bx < ax) swap(ax, bx);
-        // if (by < ay) swap(ay, by);
 
         if(board[ax][ay] != board[bx][by]) return false;
         if(ax == bx && ay == by) return false;
