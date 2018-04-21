@@ -168,13 +168,21 @@ class Field {
 class SameColorPairs {
 public:
     vector<string> removePairs(vector<string> board) {
-        vector<string> ret;
         int H = board.size(), W = board[0].size();
 
         Field field(H, W, board);
         // field.dump();
 
-        return field.fuga();
+        auto ans = field.fuga();
+        auto score = calcScore(H,W,ans.size());
+        // cerr << score << endl;
+
+        return ans;
+    }
+
+    double calcScore(int h, int w, int seqSize) {
+        double hw = h*w;
+        return seqSize * 2 / hw;
     }
 };
 
