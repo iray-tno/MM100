@@ -122,7 +122,7 @@ class Field {
                     bool updatedxy = false;
                     if (board[x][y] < 0) continue;
                     for (int nx = x; nx < h; ++nx) {
-                        for (int ny = y; ny < w; ++ny) {
+                        for (int ny = 0; ny < w; ++ny) {
                             if (check(x,y,nx,ny)) {
                                 board[x][y] = -1;
                                 board[nx][ny] = -1;
